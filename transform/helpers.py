@@ -10,7 +10,7 @@ MAIN_DIR = parent_dir()
 
 def get_config(path: str) -> dict:
     """Given the path of the .env file, file return the values as a dictionary"""
-    return dotenv_values("../extract/dhelos_files.env")
+    return dotenv_values(path)
 
 
 def get_excels(path: str) -> list[str]:
