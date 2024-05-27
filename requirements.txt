@@ -1,0 +1,4 @@
+dot-env
+pandas
+openpyxl
+xlsxwriter
