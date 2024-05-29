@@ -56,6 +56,16 @@ def month_filter(df, col, month, year: int = 2024, day: int = 1):
     
     return range_filter(df, col, start_date, end_date)
 
+def nested_group_by(df, by_cols) -> pd.DataFrame:
+    """
+    This tool is created for an interaction bucle. With this,
+    yo can pass de df and columns to grupo and it will store in
+    a callabe way the dataframe.
+    """
+    return df.groupby(
+            by = by_cols
+        ).sum()
+
 def sells_pivot(
         df, values: str = "Ventas brutas",
         index: str = "Nombre del Item",

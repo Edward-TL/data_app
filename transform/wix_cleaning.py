@@ -1,5 +1,5 @@
 import pandas as pd
-from pandas_tools import replace_text
+from .pandas_tools import replace_text
 
 def currency_clean(df: pd.DataFrame, col: str, currency_sufix: str = "Â\xa0MXN", k_sep: str = ".",
                    decimal_sep: str = ",", use_cents: bool = False) -> pd.Series:
