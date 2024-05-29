@@ -4,7 +4,7 @@ from os import listdir
 
 def parent_dir() -> str:
     """Return the parent directory, so the folder can be added as needed"""
-    return str(Path("./").parent.absolute()).replace("\\transform","")
+    return str(Path("./").parent.absolute())
 
 def get_config(path: str) -> dict:
     """Given the path of the .env file, file return the values as a dictionary"""
