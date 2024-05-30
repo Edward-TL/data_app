@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Literal
 
-from plot.objects import ChartData
+from .plot.objects import ChartData
 from .plot.excel import bar, BAR_TYPES
 
 @dataclass
@@ -17,7 +17,7 @@ class Bar(Chart):
         self.plotly = None
 
     def to_excel(self):
-        return bar(self._data)
+        return bar(self._data, self._type)
     
     def show(self):
         return self.plotly

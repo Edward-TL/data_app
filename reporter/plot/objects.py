@@ -67,7 +67,6 @@ class ChartReferences:
     table_values, first_row and first_col are assigned with the Worksheet
     data on a __post_init__ func. Don't type in there
     """
-    table_sheet: str = "Hoja1"
     # chart_sheet: str = "Prueba de Grafico"
 
     # DO NOT TOUCH THIS UNTIL NEW VERSION OF OPENPYXL
@@ -149,7 +148,7 @@ class ChartData:
     """
     titles: stored the title values of the chart, as its x and y axis.
     wb: path and file name (ending with '.xlsx') of the workbook
-    ref: Reference object that stores [table_sheet, chart_sheet, chart_values, labels]
+    ref: Reference object that stores [chart_sheet, chart_values, labels]
     df: pandas.DataFrame of the data.
     palette: Palette object that stores company palette.
     """

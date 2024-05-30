@@ -1,10 +1,10 @@
 
-from dataclasses import dataclass
-from openpyxl.chart import BarChart, BarChart3D, Reference
+from openpyxl.chart import BarChart, BarChart3D
 from typing import Literal
 
+from openpyxl.worksheet.cell_range import CellRange
 # HAND-MADE
-from objects import ChartData
+from .objects import ChartData, excel_reference
 
 # @dataclass
 # class BarTypes:
@@ -53,30 +53,31 @@ def bar(Chart: ChartData, bar_type: BAR_TYPES):
     chart.x_axis.title = Chart.titles.x_axis
 
     # Data part
-    values = Reference(
-        Chart.ws,
-        min_col = Chart.ref.chart_values.min_col,
-        max_col = Chart.ref.chart_values.max_col,
-        min_row = Chart.ref.chart_values.min_row,
-        max_row = Chart.ref.chart_values.max_row,
+    # All table case
+    if Chart.ref.series_values == None:
+        chart.add_data(
+            Chart.ref.table_values,
+            titles_from_data = Chart.ref.labels_at_header
         )
-    
-    chart.add_data(values)
-
+    # Just one column from the table 
+    else:
+        chart.add_data(
+                excel_reference(
+                cell_range = CellRange(
+                    range_string = Chart.ref.series_values
+                    ),
+                ws = Chart.data.ws,
+                adjust= False
+            ),
+            titles_from_data = Chart.ref.labels_at_header
+        )
     # Labels part
-    if Chart.ref.x_axis_labels != False:
-        cats = Reference(
-            Chart.ws,
-            # Same first column
-            min_col = Chart.ref.x_axis_labels.min_col,
-            max_col = Chart.ref.x_axis_labels.min_col,
-            min_row = Chart.ref.x_axis_labels.min_row,
-            max_row = Chart.ref.x_axis_labels.max_row,
-            )
-        
-        chart.set_categories(cats)
+    chart.set_categories(
+        Chart.ref.first_col
+    )
 
-    Chart.ws.add_chart(chart, Chart.ref.chart_position)
+    chart.height = Chart.height
+    chart.width = Chart.width
 
-    Chart.wb.save(Chart.file_path)
+    Chart.chart.ws.add_chart(chart, Chart.ref.chart_position)
 
